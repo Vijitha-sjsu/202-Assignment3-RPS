@@ -20,7 +20,9 @@ private:
 
 public:
     SmartStrategy();
+    virtual ~SmartStrategy();
     char makeChoice() override;
+    void updateState(char humanChoice) override;
     void updateHistory(char humanChoice, char computerChoice);
     void loadFrequencies();
     void saveFrequencies();

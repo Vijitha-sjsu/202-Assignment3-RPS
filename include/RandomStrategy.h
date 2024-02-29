@@ -10,6 +10,7 @@ class RandomStrategy : public Strategy {
 public:
     RandomStrategy();
     char makeChoice() override;
+    void updateState(char humanChoice) override;
 };
 
 #endif // RANDOMSTRATEGY_H

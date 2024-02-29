@@ -6,7 +6,7 @@
 
 // Constructor
 GameEngine::GameEngine(Player* human, Strategy* strategy)
-    : humanPlayer(human), computerPlayer(nullptr), scoreHuman(0), scoreComputer(0) {
+    : humanPlayer(human), computerPlayer(nullptr), strategy(strategy), scoreHuman(0), scoreComputer(0) {
     this->computerPlayer = new ComputerPlayer(strategy);
 }
 
@@ -19,6 +19,7 @@ GameEngine::~GameEngine() {
 // The method to play one round of the game
 char GameEngine::playRound() {
     char humanChoice = humanPlayer->makeChoice();
+    strategy->updateState(humanChoice);
     char computerChoice = computerPlayer->makeChoice();
 
     std::cout << "Human: " << humanChoice << " vs Computer: " << computerChoice << std::endl;

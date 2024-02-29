@@ -8,6 +8,10 @@ SmartStrategy::SmartStrategy() {
     loadFrequencies();
 }
 
+SmartStrategy::~SmartStrategy() {
+    saveFrequencies();
+}
+
 char SmartStrategy::makeChoice() {
     if (recentChoices.size() < N - 1) {
         // Not enough data to predict; use a random choice
@@ -21,17 +25,17 @@ char SmartStrategy::makeChoice() {
     }
 }
 
-void SmartStrategy::updateHistory(char humanChoice, char computerChoice) {
-    recentChoices.push_back(humanChoice);
-    recentChoices.push_back(computerChoice);
-    // Keep only the last N choices
-    while (recentChoices.size() > N) {
-        recentChoices.erase(recentChoices.begin());
-    }
+void SmartStrategy::updateState(char humanChoice) {
+	std::cout << "INSIDE SmartStrategy::updateState" << std::endl;
+	recentChoices.push_back(humanChoice);
+	// Ensure recentChoices does not exceed N characters
+	if (recentChoices.size() > N) {
+		recentChoices.erase(recentChoices.begin());
+	}
 
-    // Update frequencies
-    std::string sequence = getRecentSequence();
-    choiceFrequencies[sequence]++;
+	std::string recentChoicesStr(recentChoices.begin(), recentChoices.end());
+    // Update frequencies locally
+	choiceFrequencies[recentChoicesStr]++;
 }
 
 void SmartStrategy::loadFrequencies() {

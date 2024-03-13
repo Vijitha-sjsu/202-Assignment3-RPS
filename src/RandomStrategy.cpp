@@ -21,6 +21,6 @@ char RandomStrategy::makeChoice() {
 }
 
 void RandomStrategy::updateState(char humanChoice) {
-	std::cout << "INSIDE RandomStrategy::updateState" << std::endl;
+	// No impl needed
 }
 

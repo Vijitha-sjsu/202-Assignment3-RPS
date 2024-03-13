@@ -4,8 +4,9 @@
 #include "../include/ComputerPlayer.h"
 #include "../include/RandomStrategy.h"
 #include "../include/SmartStrategy.h"
+#include "../include/StrategyFactory.h"
 #include <iostream>
-#include <memory> // For std::unique_ptr
+#include <memory>
 
 int main() {
     std::cout << "Choose strategy for computer player:\n";
@@ -15,15 +16,11 @@ int main() {
     int choice;
     std::cin >> choice;
 
-    Strategy* strategy = nullptr;
-    if (choice == 1) {
-        strategy = new RandomStrategy();
-    } else if (choice == 2) {
-        strategy = new SmartStrategy();
-    } else {
-        std::cerr << "Invalid choice. Exiting...\n";
-        return 1;
-    }
+    Strategy* strategy = StrategyFactory::createStrategy(choice);
+	if (strategy == nullptr) {
+		std::cerr << "Invalid choice. Exiting...\n";
+		return 1;
+	}
 
     HumanPlayer* human = new HumanPlayer();
     GameEngine game(human, strategy);

@@ -33,9 +33,11 @@ void SmartStrategy::updateState(char humanChoice) {
 		recentChoices.erase(recentChoices.begin());
 	}
 
-	std::string recentChoicesStr(recentChoices.begin(), recentChoices.end());
-    // Update frequencies locally
-	choiceFrequencies[recentChoicesStr]++;
+	// Only process and store sequences of exactly length N
+	    if (recentChoices.size() == N) {
+	        std::string recentChoicesStr(recentChoices.begin(), recentChoices.end());
+	        choiceFrequencies[recentChoicesStr]++;
+	    }
 }
 
 void SmartStrategy::loadFrequencies() {
